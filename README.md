@@ -22,23 +22,31 @@ Auction house addon for XCore with fixed-price listings, live bidding auctions, 
 - Maximum active auctions per player (configurable)
 
 ### Item Claim System
-- **My Purchases** -- new filter in My Items to view and claim bought items
+- **My Purchases** -- filter in My Items to view and claim bought items (full purchase history preserved)
 - **Smart delivery** -- if buyer is online with inventory space, item is given directly; if inventory is full, item goes to My Purchases for claim
 - **Auction wins** -- won items delivered directly if online, or stored for claim if offline/full inventory
 - **Login notification** -- players notified of pending claims on join
+- **Claimed items** -- stay visible in history with "Claimed" status indicator
 
 ### Marketplace
 - **7 categories** -- All, Tools, Weapons, Blocks, Armors, Spawners, Other
 - **Search** -- by item name, price range, material type
 - **Sorting** -- newest/oldest, by category, by listing type (All / Buy Now / Auctions)
-- **Favorites** -- bookmark items, dedicated favorites view, auto-purge obsolete entries
+- **Favorites** -- bookmark items, dedicated favorites view, auto-purge obsolete entries, add/remove button in item lore updates in real-time
 - **Shulker support** -- view contents before buying, blocked item validation inside shulkers
 
 ### Economy
 - **Tax system** -- configurable rate, buyer or seller side
 - **Sell limits** -- permission-based (`ah.limit.N`)
 - **Pending payments** -- offline sellers paid automatically on next login
+- **Seller notifications** -- sellers notified at login of all sales made while offline (configurable delay)
 - **Price history** -- analytics table for sold item prices
+
+### Visual Indicators
+- **Not enough money** -- buy/bid button replaced with red "Not enough money" when player can't afford
+- **Inventory full** -- buy button replaced with red "Inventory full" when no space (fixed-price only)
+- **Translatable item names** -- item names displayed in player's language in chat messages and bossbar
+- **Hoverable items** -- item names in chat show enchantments, durability, etc. on hover
 
 ### Integrations
 - **Discord** -- webhooks for listings, sales, bids, auction wins, admin actions
