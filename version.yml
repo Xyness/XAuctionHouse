@@ -1,25 +1,9 @@
 # Version
-version: 1.0.5
+version: 1.0.6
 
 # Update date
 date: 13/04/2026
 
 # Update notes
 update-notes:
-- Add/remove favorite button in item lore (updates in real-time)
-- Show 'Not enough money' or 'Inventory full' instead of buy/bid button when applicable
-- Block click to buy/bid when player cannot afford or inventory full
-- Translatable item names in all chat messages and bossbar announcements (localized per player)
-- Hoverable item names in chat showing enchantments, durability, etc.
-- Seller offline notification on reconnect (lists all sales made during absence)
-- Full purchase history (SOLD and BOUGHT filters query DB, persist after claim)
-- Claimed items stay in history with 'Claimed' status indicator
-- Filter 'Their' labels in /pah admin view instead of 'My'
-- Fix /pah max page showing '?'
-- Fix snipe protection threshold/extension parsing (was reading string as long)
-- Send snipe protection extension message to seller and bidder
-- Fix expiration timing precision (milliseconds instead of seconds)
-- Fix expired items lingering in GUI (real-time isExpired check)
-- announce-bids enabled by default
-- Admin permission on /xauctionhouse command
-- Usage messages for /ah sell, /ah auction, /ah search, /ah favorite
+- Updated lang file
