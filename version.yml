@@ -1,13 +1,14 @@
 # Version
-version: 1.0.2
+version: 1.0.3
 
 # Update date
-date: 12/04/2026
+date: 13/04/2026
 
 # Update notes
 update-notes:
-- Fix bid amount floating point precision issue
-- Fix back button in bid GUI showing lang key instead of display name
-- Unified announcement system for sales, bids and auction wins
-- Add force-remove in /pah for admin (Shift+Left click on FOR_SALE/EXPIRED items)
-- Add update checker
+- Add item claim system (My Purchases filter in My Items GUI)
+- Smart item delivery (inventory full goes to claim, direct give otherwise)
+- Configurable bid increment tiers in config.yml
+- Swap command args (/ah sell <price> [quantity] [currency], /ah auction <bid> [duration] [currency])
+- Remove /ah bid and /ah history commands
+- Add config and lang auto-update on startup

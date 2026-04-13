@@ -15,10 +15,17 @@ Auction house addon for XCore with fixed-price listings, live bidding auctions, 
 
 ### Bidding System
 - Minimum bid increment (flat or percentage-based, configurable)
+- **Configurable bid increment tiers** -- adjust +/- button values per starting bid magnitude in config
 - Snipe protection -- extends auction if bid placed near end
 - Automatic refund to outbid players
 - Bid history tracked per auction item
 - Maximum active auctions per player (configurable)
+
+### Item Claim System
+- **My Purchases** -- new filter in My Items to view and claim bought items
+- **Smart delivery** -- if buyer is online with inventory space, item is given directly; if inventory is full, item goes to My Purchases for claim
+- **Auction wins** -- won items delivered directly if online, or stored for claim if offline/full inventory
+- **Login notification** -- players notified of pending claims on join
 
 ### Marketplace
 - **7 categories** -- All, Tools, Weapons, Blocks, Armors, Spawners, Other
@@ -30,7 +37,7 @@ Auction house addon for XCore with fixed-price listings, live bidding auctions, 
 ### Economy
 - **Tax system** -- configurable rate, buyer or seller side
 - **Sell limits** -- permission-based (`ah.limit.N`)
-- **Pending payments** -- offline sellers paid on next login
+- **Pending payments** -- offline sellers paid automatically on next login
 - **Price history** -- analytics table for sold item prices
 
 ### Integrations
@@ -41,7 +48,7 @@ Auction house addon for XCore with fixed-price listings, live bidding auctions, 
 
 ### GUIs (8 screens, fully YAML-configurable)
 - **Auction House** -- main browse with sorting, filtering, pagination, favorites
-- **My Items** -- for sale / expired / sold / active bids tabs
+- **My Items** -- for sale / expired / sold / my purchases / active bids tabs
 - **Confirm** -- purchase confirmation with price, tax, and expiration display
 - **Search** -- filtered results with same controls as main GUI
 - **Bid Amount** -- select bid with +/- buttons, confirm
@@ -54,14 +61,12 @@ Auction house addon for XCore with fixed-price listings, live bidding auctions, 
 | Command | Description | Permission |
 |---------|-------------|------------|
 | `/ah` | Open the auction house | - |
-| `/ah sell <price> [currency] [quantity]` | List item at fixed price | - |
-| `/ah auction <starting_bid> [currency] [duration]` | Start a timed auction | - |
-| `/ah bid <amount>` | Bid on selected auction item | - |
+| `/ah sell <price> [quantity] [currency]` | List item at fixed price | - |
+| `/ah auction <starting_bid> [duration] [currency]` | Start a timed auction | - |
 | `/ah cancel` | View your listings | - |
 | `/ah search <query> [min] [max] [material]` | Search items | - |
 | `/ah favorite <item_uuid>` | Toggle favorite | - |
 | `/ah favorites` | View favorited items | - |
-| `/ah history [player]` | Transaction history | `ah.admin` (others) |
 | `/ah help` | Show help | - |
 | `/ah reload` | Reload config, lang, GUIs | `ah.admin` |
 | `/ah purge-expired` | Delete all expired items | `ah.admin` |
@@ -85,14 +90,14 @@ Auction duration format: `1h`, `6h`, `12h`, `1d`, `3d`, `7d`. Defaults to `aucti
 5. Outbid players are automatically refunded
 6. **Snipe protection**: bid placed near the end extends the auction
 7. When auction ends:
-   - **With bids**: highest bidder gets item, seller receives payment (minus tax)
+   - **With bids**: highest bidder gets item (directly or via claim), seller receives payment (minus tax)
    - **No bids**: item returned to seller or marked as expired
 
 ## Permissions
 
 | Permission | Description |
 |------------|-------------|
-| `ah.admin` | Admin commands (reload, purge, history for others, pah) |
+| `ah.admin` | Admin commands (reload, purge, pah) |
 | `ah.admin.remove` | Force-remove items (shift+left click in GUI) |
 | `ah.limit.<N>` | Maximum active fixed-price listings |
 
@@ -128,6 +133,16 @@ auction:
     enabled: true
     threshold: 5m
     extension: 5m
+  # Configurable bid increment tiers
+  bid-increments:
+    - threshold: 100
+      values: [1, 10, 50]
+    - threshold: 1000
+      values: [10, 100, 500]
+    - threshold: 10000
+      values: [100, 1000, 5000]
+    - threshold: -1          # -1 = fallback
+      values: [1000, 10000, 50000]
   announce-bids: false
   announce-wins: true
 
