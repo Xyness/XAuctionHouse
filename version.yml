@@ -14,7 +14,7 @@ update-notes:
 - Seller offline notification on reconnect (lists all sales made during absence)
 - Full purchase history (SOLD and BOUGHT filters query DB, persist after claim)
 - Claimed items stay in history with 'Claimed' status indicator
-- 'Their' filter labels in /pah admin view instead of 'My'
+- Filter 'Their' labels in /pah admin view instead of 'My'
 - Fix /pah max page showing '?'
 - Fix snipe protection threshold/extension parsing (was reading string as long)
 - Send snipe protection extension message to seller and bidder
