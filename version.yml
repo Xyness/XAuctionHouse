@@ -1,9 +1,12 @@
 # Version
-version: 1.0.7
+version: 1.0.8
 
 # Update date
-date: 13/04/2026
+date: 16/04/2026
 
 # Update notes
 update-notes:
-- Fix minor issue
+- Consolidated announcement settings into single section
+- Removed redundant /xauctionhouse command
+- Added /ah my subcommand
+- Added /auctionhouse alias
