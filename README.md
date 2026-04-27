@@ -81,6 +81,10 @@ Auction house addon for XCore with fixed-price listings, live bidding auctions, 
 | `/ah purge-bought` | Delete all sold items | `ah.admin` |
 | `/pah <player>` | View a player's items (admin) | `ah.admin` |
 
+### Command Aliases
+
+Custom command names can be defined in `config.yml` under `command-aliases`. For example, set `command-aliases.ah: [hdv, auctionhouse]` to let players type `/hdv` or `/auctionhouse` instead of `/ah`. The main command name (`ah`, `pah`) is always available, even if the alias list is empty. Aliases are case-insensitive and apply to every subcommand and tab-completion.
+
 ### Currency
 
 If `[currency]` is omitted, the primary Vault currency from XCore is used (the one with `vault: true` in XCore's economy config).
@@ -112,6 +116,12 @@ Auction duration format: `1h`, `6h`, `12h`, `1d`, `3d`, `7d`. Defaults to `aucti
 ## Configuration
 
 ```yaml
+# Command aliases (additional names for /ah and /pah)
+command-aliases:
+  ah:
+    - auctionhouse
+  pah: []
+
 # Listing duration before expiration
 duration: 3d
 
