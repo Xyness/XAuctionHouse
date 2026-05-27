@@ -1,9 +1,9 @@
 # Version
-version: 1.0.14
+version: 1.0.15
 
 # Update date
 date: 27/05/2026
 
 # Update notes
 update-notes:
-- Fixed /ah reload command
+- Fixed economy issue without XCore economy
