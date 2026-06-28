@@ -59,7 +59,7 @@ Auction house addon for XCore with fixed-price listings, live bidding auctions, 
 ### Integrations
 - **Discord** -- webhooks for listings, sales, bids, auction wins, admin actions
 - **PlaceholderAPI** -- sell count, sell limit, expired count, active auctions, active bids
-- **Web API** -- REST endpoints for listings, sales, stats, player data
+- **Web dashboard** -- listings, sales, stats, player lookup, and a **Bans** page (list / ban / unban) on the XCore panel
 - **Cross-server sync** -- listings, purchases, and bids sync via XCore SyncManager
 
 ### GUIs (8 screens, fully YAML-configurable)
@@ -252,6 +252,9 @@ Base path: `/api/xauctionhouse` (requires XCore web dashboard)
 | `GET /sales` | Recent sales |
 | `GET /stats` | Aggregate statistics |
 | `GET /player/{name}` | Player's listings, sales, purchases |
+| `GET /bans` | Auction-house bans (with Active/Expired status) |
+| `POST /bans/add` | Ban a player (`{player, duration, reason}`; `def` = permanent) |
+| `POST /bans/remove` | Unban a player (`{player}`) |
 
 ## Database
 
@@ -261,3 +264,4 @@ Base path: `/api/xauctionhouse` (requires XCore web dashboard)
 | `xauctionhouse_bids` | Bid history per auction |
 | `xauctionhouse_favorites` | Player favorites |
 | `xauctionhouse_price_history` | Sale price analytics |
+| `xauctionhouse_bans` | Auction-house bans |
