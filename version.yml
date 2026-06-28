@@ -12,3 +12,4 @@ update-notes:
 - Banned players can be blocked from selling, buying, bidding and/or opening the AH (configurable)
 - A banned player's active listings are removed automatically (configurable)
 - Cross-server sync for bans
+- Web dashboard Bans page to list, ban and unban players
