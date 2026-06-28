@@ -41,6 +41,14 @@ Auction house addon for XCore with fixed-price listings, live bidding auctions, 
 - **Pending payments** -- offline sellers paid automatically on next login
 - **Seller notifications** -- sellers notified at login of all sales made while offline (configurable delay)
 - **Price history** -- analytics table for sold item prices
+- **Server listings (money sink)** -- admins list items with `/ah serverlist <price> [infinite] [currency]`. The buyer is charged normally but **no one is paid**, so the money leaves the economy. `single` listings are consumed on purchase; `infinite` listings stay in stock and can be bought repeatedly. They never expire and display the configurable `Server` seller name.
+
+### Moderation
+- **Auction-house bans** -- punish scammers with `/ah ban <player> <duration|def> [reason]` and `/ah unban <player>` (works on offline players, `def` = permanent)
+- **Configurable scope** -- block selling, buying, bidding and/or opening the AH independently (`bans.block-*`)
+- **Auto-cleanup** -- a banned player's active listings are force-removed on ban (configurable; items returned if they are online)
+- **Staff exemption** -- `ah.admin` players cannot be banned (configurable)
+- **Cross-server** -- bans propagate to every server via XCore sync
 
 ### Visual Indicators
 - **Not enough money** -- buy/bid button replaced with red "Not enough money" when player can't afford
@@ -79,6 +87,9 @@ Auction house addon for XCore with fixed-price listings, live bidding auctions, 
 | `/ah reload` | Reload config, lang, GUIs | `ah.admin` |
 | `/ah purge-expired` | Delete all expired items | `ah.admin` |
 | `/ah purge-bought` | Delete all sold items | `ah.admin` |
+| `/ah serverlist <price> [infinite] [currency]` | Create a server listing (money sink) | `ah.admin` |
+| `/ah ban <player> <duration\|def> [reason]` | Ban a player from the auction house | `ah.admin` |
+| `/ah unban <player>` | Lift an auction-house ban | `ah.admin` |
 | `/pah <player>` | View a player's items (admin) | `ah.admin` |
 
 ### Command Aliases
@@ -109,7 +120,7 @@ Auction duration format: `1h`, `6h`, `12h`, `1d`, `3d`, `7d`. Defaults to `aucti
 
 | Permission | Description |
 |------------|-------------|
-| `ah.admin` | Admin commands (reload, purge, pah) |
+| `ah.admin` | Admin commands (reload, purge, pah, serverlist, ban, unban) |
 | `ah.admin.remove` | Force-remove items (shift+left click in GUI) |
 | `ah.limit.<N>` | Maximum active fixed-price listings |
 
@@ -187,6 +198,21 @@ discord-sales:
 discord-admin:
   enabled: false
   webhook-url: ""
+
+# Auction-house bans (punish scammers)
+bans:
+  default-reason: "Scam"
+  exempt-admins: true            # ah.admin players cannot be banned
+  cancel-listings-on-ban: true   # remove the banned player's active listings
+  block-sell: true               # /ah sell and /ah auction
+  block-buy: true                # buying fixed-price listings
+  block-bid: true                # bidding on auctions
+  block-open: false              # opening the auction house at all
+
+# Server listings (money sink)
+server-listings:
+  enabled: true
+  display-name: "Server"         # seller name shown for server listings
 ```
 
 ## GUI Customization
