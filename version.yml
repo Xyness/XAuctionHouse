@@ -6,9 +6,9 @@ date: 29/06/2026
 
 # Update notes
 update-notes:
-- "Added auction-house bans to punish scammers (/ah ban & /ah unban)"
-- "Added server listings: admin-created listings whose proceeds are destroyed (money sink)"
-- "Server listings support single (consumed) and infinite (restockable) stock"
-- "Banned players can be blocked from selling, buying, bidding and/or opening the AH (configurable)"
-- "A banned player's active listings are removed automatically (configurable)"
-- "Cross-server sync for bans"
+- Added auction-house bans to punish scammers (/ah ban & /ah unban)
+- Added server listings admin-created listings whose proceeds are destroyed (money sink)
+- Server listings support single (consumed) and infinite (restockable) stock
+- Banned players can be blocked from selling, buying, bidding and/or opening the AH (configurable)
+- A banned player's active listings are removed automatically (configurable)
+- Cross-server sync for bans
