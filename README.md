@@ -29,19 +29,52 @@ Auction house addon for XCore with fixed-price listings, live bidding auctions, 
 - **Claimed items** -- stay visible in history with "Claimed" status indicator
 
 ### Marketplace
-- **7 categories** -- All, Tools, Weapons, Blocks, Armors, Spawners, Other
+- **11 categories** -- All, Equipment, Blocks, Redstone, Resources, Food, Potions, Enchanting,
+  Decoration, Spawners, Other (+ Favorites). A category is derived from the item and never stored,
+  so the set can be reshaped without migrating a single listing
 - **Search** -- by item name, price range, material type
 - **Sorting** -- newest/oldest, by category, by listing type (All / Buy Now / Auctions)
 - **Favorites** -- bookmark items, dedicated favorites view, auto-purge obsolete entries, add/remove button in item lore updates in real-time
 - **Shulker support** -- view contents before buying, blocked item validation inside shulkers
 
 ### Economy
-- **Tax system** -- configurable rate, buyer or seller side
+- **Tax system** -- configurable rate, buyer or seller side. Applies to fixed-price sales *and*
+  auctions: under `BUYER` the tax is added on top of the bid when it is placed, under `SELLER` it is
+  deducted from the payout.
+- **Payment-first purchases** -- an item only changes hands once the money has actually been
+  collected. A refused withdrawal (insufficient funds, an economy plugin vetoing the transaction)
+  aborts the purchase instead of delivering the item. Vault calls run on the server thread, since
+  most economy implementations are not thread-safe.
 - **Sell limits** -- permission-based (`ah.limit.N`)
 - **Pending payments** -- offline sellers paid automatically on next login
 - **Seller notifications** -- sellers notified at login of all sales made while offline (configurable delay)
 - **Price history** -- analytics table for sold item prices
 - **Server listings (money sink)** -- admins list items with `/ah serverlist <price> [infinite] [currency]`. The buyer is charged normally but **no one is paid**, so the money leaves the economy. `single` listings are consumed on purchase; `infinite` listings stay in stock and can be bought repeatedly. They never expire and display the configurable `Server` seller name.
+
+### Market Prices
+- Every sale is recorded; `/ah price [material]` reports the average, lowest, highest and last
+  price over the configured window (7 days by default)
+- Hold an item and type `/ah price` to price it against what buyers actually paid, rather than
+  against the listings nobody has bought
+- A **Market** page on the dashboard ranks materials by how much they change hands
+
+### Standing Alerts
+- `/ah alert add <material> [max price]` -- be told when one is listed, even offline-and-back
+- Checked when a listing is created, so an alert costs nothing until it matches
+- `/ah alert`, `/ah alert remove <material>`, `/ah alert clear`
+
+### Quick Buying
+- `/ah buy <material> [max price]` -- buys the cheapest matching listing through the normal
+  confirmation screen
+
+### Per-Rank Commission
+- `ah.tax.<name>` maps a rank to its own tax rate; the lowest rate a player holds wins
+- A flat rate taxes the occasional seller exactly as hard as the shop owner, and gives a server
+  nothing to offer its supporters
+
+### Restricted Materials
+- `restricted-materials` + `ah.sell.<material>` -- keep spawners or shulkers to the ranks that
+  earned them, without banning them outright
 
 ### Moderation
 - **Auction-house bans** -- punish scammers with `/ah ban <player> <duration|def> [reason]` and `/ah unban <player>` (works on offline players, `def` = permanent)
@@ -115,6 +148,28 @@ Auction duration format: `1h`, `6h`, `12h`, `1d`, `3d`, `7d`. Defaults to `aucti
 7. When auction ends:
    - **With bids**: highest bidder gets item (directly or via claim), seller receives payment (minus tax)
    - **No bids**: item returned to seller or marked as expired
+
+### Buy it now
+
+A seller can name a price the auction can be taken at immediately:
+
+```
+/ah auction <starting_bid> <duration> <currency> <buy_it_now_price>
+```
+
+Buyers take it with **shift + right click** on the listing. The standing bidder is refunded and the
+item changes hands. The order is deliberate: the sale is claimed under the same lock as any other
+purchase *first*, and only once the row is ours does anyone get money back — refunding before the
+claim would hand the bidder their money back on an auction somebody else went on to win.
+
+```yaml
+auction:
+  buyout:
+    enabled: false
+```
+
+> Off by default. It moves money, and a money path deserves a try on your own server before it faces
+> your players. Nothing else changes while it is off — auctions simply carry no buy-it-now price.
 
 ## Permissions
 
@@ -241,6 +296,14 @@ Items support: `material`, `target-title`, `target-lore`, `target-button-on`/`of
 | `%xauctionhouse_expired_count%` | Expired items |
 | `%xauctionhouse_active_auctions%` | Active auction count |
 | `%xauctionhouse_active_bids%` | Items with player's highest bid |
+
+## Language
+
+Language files live in `lang/<code>.yml` and follow XCore's single `language` setting in
+`plugins/XCore/config.yml` — there is nothing to set per addon. English and French are bundled; an
+addon with no translation for the chosen language falls back to English and says so once in the
+console. A message added by a release is appended to your file on startup, and your own wording is
+never overwritten.
 
 ## Web API
 

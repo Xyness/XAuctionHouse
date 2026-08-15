@@ -1,9 +1,37 @@
 # Version
-version: 1.1.2
+version: 1.2.0
 
 # Update date
-date: 28/07/2026
+date: 16/08/2026
 
 # Update notes
 update-notes:
-- Added messages for webhooks
+- "Added /ah price <item>, the average, lowest, highest and last sale price"
+- "Added a Market page on the dashboard"
+- "Added /ah alert add, it fires as soon as a matching item is listed"
+- "Added /ah buy <item>, buys the cheapest match without opening the menu"
+- "Added buy it now on auctions, shipped off (auction.buyout.enabled)"
+- "Added tax by rank through ah.tax.<name>, the lowest rate wins"
+- "Added reserved materials through ah.sell.<material>"
+- "Categories are declared in config.yml instead of being fixed in the code"
+- "Tools, Weapons and Armors are now one Equipment category"
+- "Added the Redstone, Resources, Food, Potions, Enchanting and Decoration categories"
+- "Categories are computed from the item, existing listings need no migration"
+- "Fixed a money duplication, a failed Vault withdrawal was reported as a success"
+- "Purchases and bids now abort when the payment cannot be collected"
+- "Fixed auctions being tax free with tax-type: BUYER"
+- "Vault calls run on the server thread again, most economy plugins are not thread safe"
+- "Fixed a listing cancelled from the dashboard staying in the menu until a restart"
+- "Fixed the dashboard Cancel button, it posted to a route that does not exist"
+- "Fixed the Sales History page falling back to a raw table"
+- "Fixed the total volume never being computed on the statistics page"
+- "Dashboard listings, sales and bans are paged 20 rows at a time"
+- "A single unreadable row no longer aborts the loading of every other listing"
+- "A banned seller keeps their listings, parked as expired instead of destroyed"
+- "Items that do not fit the inventory are dropped instead of deleted"
+- "Fixed /ah purge throwing when run from the console"
+- "The history is paged in the database instead of being loaded whole"
+- "The search key is computed when an item is listed, not on every search"
+- "Sorted views and sell limits are cached, GUI buttons are built once"
+- "config.yml is grouped by subject"
+- "Language files follow the single language setting of XCore, French included"
