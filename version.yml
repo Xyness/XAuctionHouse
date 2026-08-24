@@ -1,9 +1,32 @@
 # Version
-version: 1.2.1
+version: 1.2.2
 
 # Update date
-date: 16/08/2026
+date: 20/08/2026
 
 # Update notes
 update-notes:
-- "Fixed minor issue on translatable component for /ah price"
+- "Added purge.expired-days, an unreclaimed listing goes back to its seller"
+- "Added purge.history-days for settled sales"
+- "Discord notifications survive a rate limit, they wait their turn instead of being lost"
+- "GUI clicks go through the shared handler in XCore, sounds and actions behave the same everywhere"
+- "Requires XCore 1.1"
+- "Fixed opening the auction house blocking a worker thread while waiting on the same pool"
+- "Fixed a buy it now refunding the previous bidder from the database pool while waiting on it"
+- "Listings, alerts and bans run their queries on the database pool"
+- "The four browsing screens share one implementation instead of four copies of it"
+- "Listings load off the main thread, on every open and every page turn"
+- "Changing a sort or a filter redraws the screen instead of building a new one"
+- "Bedrock forms moved to their own class, away from the Java screens"
+- "Added /ah stats, what a player has listed, sold and bought"
+- "Fixed the navigation buttons showing the name of a language key instead of the text"
+- "Fixed every lore in the auction house showing in italics"
+- "Fixed the admin remove line missing from a listing until the next blink"
+- "The house and the search results refresh again while open, so a new listing appears on its own"
+- "Result sets in the dashboard endpoints are closed with the statement that made them"
+- "The not-enough-money message says how much is needed, which the code has been passing all along"
+- "The join message delay is read once instead of on every connection"
+- "Fixed clicking an expired listing to take it back doing nothing at all"
+- "An expired listing says so instead of counting down to Expiration: 0 seconds"
+- "Fixed removing a listing twice handing out two copies of the item"
+- "The Market tab is translated instead of showing the word market"

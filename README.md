@@ -27,6 +27,13 @@ A purchase is delivered directly when the buyer is online with room, otherwise i
 Purchases, as does an auction win. Players are told on join that something is waiting. A claimed
 item stays in the history marked as claimed.
 
+### Housekeeping
+
+An expired listing nobody reclaims used to stay in memory and be reloaded at every start, for
+good. `purge.expired-days` hands it back to its seller through XCore's mailbox, so they get it on
+their next login, and removes the row. `purge.history-days` sets how long a
+fully settled sale is kept as history. Either window is disabled by setting it to 0.
+
 ### Browsing
 
 Eleven categories: All, Equipment, Blocks, Redstone, Resources, Food, Potions, Enchanting,
@@ -91,15 +98,17 @@ durability.
 
 ### Integrations
 
-Discord webhooks for listings, sales, bids, auction wins and admin actions. PlaceholderAPI. A
-dashboard with listings, sales, statistics, player lookup and a Bans page. Listings, purchases and
-bids sync through XCore's SyncManager.
+Discord webhooks for listings, sales, bids, auction wins and admin actions, sent through XCore so a
+busy market delays notifications rather than losing them. PlaceholderAPI. A dashboard with listings,
+sales, statistics, player lookup and a Bans page. Listings, purchases and bids sync through XCore's
+SyncManager.
 
 ### Menus
 
 Eight screens, configurable in YAML: the main browse, My Items with its tabs, purchase
 confirmation, search results, the bid selector, bid confirmation, the admin view of a player, and
-the shulker viewer.
+the shulker viewer. The four browsing screens share one implementation, load their listings off the
+main thread on every open and every page turn, and redraw in place when a sort or a filter changes.
 
 ## Commands
 
@@ -111,6 +120,7 @@ the shulker viewer.
 | `/ah cancel` | Your listings | - |
 | `/ah search <query> [min] [max] [material]` | Search | - |
 | `/ah price [material]` | Average, lowest, highest and last sale price | - |
+| `/ah stats [player]` | What you have listed, sold and bought | `ah.admin` for another player |
 | `/ah buy <material> [max price]` | Buy the cheapest match | - |
 | `/ah alert add\|remove\|clear` | Standing alerts | - |
 | `/ah favorite <item_uuid>` | Toggle a favorite | - |
